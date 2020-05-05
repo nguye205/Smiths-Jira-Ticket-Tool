@@ -53,14 +53,9 @@
 	display:block;
 	position:relative;
 }
-.contact-forms .header > i {
+.header{
 	color:#fff;
-	font-size:31px;
-	float:left;
-	padding:31px 15px 0 25px;
-}
-.contact-forms .header p {
-	color:#fff;
+	display: block;
 	margin:0;
 	padding:30px 25px;
 	font-size:30px;

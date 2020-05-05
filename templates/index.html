@@ -7,125 +7,72 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 {% extends "base.html" %}
 {% block content %}
 	<div class="content">
-		<h1>Service Request</h1>
+		<h1>Jira Ticket</h1>
+
 		<div class="main">
 			<form class="contact-forms">
-				<!-- end /.header-->
-
-				<!-- start name -->
 				<div class="first-line">
 					<div class="span6 main-row">
 						<div class="input">
-							<label class="input select">
-								<select name="country">
-									<option value="none" selected="" disabled="">Make</option>
-									<option value="ModelA">A</option>
-									<option value="ModelB">B</option>
-									<option value="ModelC">C</option>
-									<option value="ModelE">E</option>
-									<option value="ModelF">F</option>
-								</select>
-								<i></i>
-							</label>
+							<input type="text" placeholder="SSTP####" name="SSTP">
 						</div>
 					</div>
 					<div class="span6 main-row">
 						<div class="input">
-							<label class="input select">
-								<select name="country">
-									<option value="none" selected="" disabled="">Model</option>
-									<option value="ModelA">A</option>
-									<option value="ModelB">B</option>
-									<option value="ModelC">C</option>
-									<option value="ModelE">E</option>
-									<option value="ModelF">F</option>
-								</select>
-								<i></i>
-							</label>
-						</div>
-					</div>
-				</div>
-				<!-- end name -->
-
-				<!-- start email phone -->
-				<div class="first-line">
-					<div class="span6 main-row">
-						<div class="input">
-
-							<input type="email" placeholder="Email" id="email" name="email">
-						</div>
-					</div>
-					<div class="span6 main-row">
-						<div class="input">
-
-							<input type="text" placeholder="Phone" id="phone" name="phone">
+							<input type="text" placeholder="Issue Title" name="Summary">
 						</div>
 					</div>
 				</div>
 
+				<div class="first-line">
+					<div class="span6 main-row">
+						<div class="input">
+							<input type="text" placeholder="Expected result" name="Expected">
+						</div>
+					</div>
+					<div class="span6 main-row">
+						<div class="input">
+							<input type="text" placeholder="Actual result" name="Actual">
+						</div>
+					</div>
+				</div>
 
-				<!-- start country -->
 				<div class="main-row">
 					<label class="input select">
-						<select name="country">
-							<option value="none" selected="" disabled="">Service Type</option>
-
-							<option value="Philippines">Touch Screen</option>
-							<option value="Portugal">Front Glass</option>
-							<option value="South Africa">South Africa</option>
-							<option value="Spain">Spain</option>
-							<option value="Switzerland">Switzerland</option>
+						<select name="label">
+							<option value="none" selected="" disabled="">Label</option>
+							<option value="">N/A</option>
+							<option value="FormalSVT9">Formal SVT Pass 9</option>
+							<option value="South Africa">Formal SVT Pass 10</option>
 						</select>
 						<i></i>
 					</label>
 				</div>
-				<!-- end country -->
 
-				<!-- start city post code -->
 				<div class="first-line">
 					<div class="span8 main-row">
 						<div class="input">
-							<input type="text" id="city" placeholder="City" name="city">
+							<input type="text" placeholder="Pump Type" name="pump">
 						</div>
 					</div>
 				</div>
-				<!-- end city post code -->
 
-				<!-- start address -->
 				<div class="main-row">
 					<div class="input">
-
-						<input type="text" id="address" placeholder="Address" name="address">
+						<input type="text" placeholder="Firmware" name="firmware">
 					</div>
 				</div>
-				<!-- end address -->
 
-
-				<!-- start position -->
 				<div class="main-row">
-					<label class="input select">
-						<select name="position">
-							<option value="none" selected disabled="">Choose desired position</option>
-							<option value="tech lead">Operator</option>
-							<option value="product manager"> Manager</option>
-							<option value="senior developer"> Developer</option>
-							<option value="QA specialist">Designer</option>
-						</select>
-						<i></i>
-					</label>
+					<input type="text" placeholder="Library" name="library">
 				</div>
-				<!-- end position -->
 
-				<!-- start message -->
 				<div class="main-row">
 					<div class="input">
 						<textarea placeholder="Additional info" spellcheck="false" name="message"></textarea>
 						<span class="tooltip tooltip-right-top">Key Skills</span>
 					</div>
 				</div>
-				<!-- end message -->
-
-				<!-- start files -->
 
 				<div class=" main-row">
 					<label class="input append-small-btn">
@@ -138,17 +85,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</label>
 				</div>
 
-
-				<!-- end files -->
-
-
-				<!-- end /.content -->
-
 				<div class="footer">
 					<button type="submit" class="primary-btn">Send</button>
 					<button type="reset" class="secondary-btn">Reset</button>
 				</div>
-				<!-- end /.footer -->
 
 			</form>
 		</div>
