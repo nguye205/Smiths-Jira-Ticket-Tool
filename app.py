@@ -1,4 +1,5 @@
 from flask import Flask, request, Response, render_template
+from flask_bootstrap import Bootstrap
 import requests
 import itertools
 from flask_wtf.csrf import CSRFProtect
@@ -10,8 +11,8 @@ from flask.json import jsonify
 
 csrf = CSRFProtect()
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "row the boat"
-csrf.init_app(app)
+Bootstrap(app)
+
 
 @app.route('/')
 def index():

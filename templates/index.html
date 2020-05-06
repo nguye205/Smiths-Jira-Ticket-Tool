@@ -1,96 +1,70 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 {% extends "base.html" %}
 {% block content %}
-	<div class="content">
-		<h1>Jira Ticket</h1>
+<div class="container">
+	<div class="main">
+		<div class="col-sm-4 themed-grid-col">
+			<label>Title:</label>
+			<input type="text" placeholder="Issue Title" name="Summary">
+		</div>
 
-		<div class="main">
-			<form class="contact-forms">
-				<div class="first-line">
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="SSTP####" name="SSTP">
-						</div>
-					</div>
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="Issue Title" name="Summary">
-						</div>
-					</div>
+		<div class="environment">
+			<h3>Test Environment</h3>
+			<div class="row mb-3">
+				<div class="col-sm-4 themed-grid-col">
+					<label>Pump: </label>
+					<select id="pumpType">
+						<option value="LVP">LVP</option>
+						<option value="SYR">SYR</option>
+						<option value="BOTH">Both</option>
+					</select>
 				</div>
-
-				<div class="first-line">
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="Expected result" name="Expected">
-						</div>
-					</div>
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="Actual result" name="Actual">
-						</div>
-					</div>
+				<div class="col-sm-4 themed-grid-col">
+					<label>Firmware: </label>
+					<input type="text" placeholder="Firmware" name="firmware">
 				</div>
-
-				<div class="main-row">
-					<label class="input select">
-						<select name="label">
-							<option value="none" selected="" disabled="">Label</option>
-							<option value="">N/A</option>
-							<option value="FormalSVT9">Formal SVT Pass 9</option>
-							<option value="South Africa">Formal SVT Pass 10</option>
-						</select>
-						<i></i>
-					</label>
-				</div>
-
-				<div class="first-line">
-					<div class="span8 main-row">
-						<div class="input">
-							<input type="text" placeholder="Pump Type" name="pump">
-						</div>
-					</div>
-				</div>
-
-				<div class="main-row">
-					<div class="input">
-						<input type="text" placeholder="Firmware" name="firmware">
-					</div>
-				</div>
-
-				<div class="main-row">
+				<div class="col-sm-4 themed-grid-col">
+					<label>Library: </label>
 					<input type="text" placeholder="Library" name="library">
 				</div>
+			</div>
+		</div>
 
-				<div class="main-row">
-					<div class="input">
-						<textarea placeholder="Additional info" spellcheck="false" name="message"></textarea>
-						<span class="tooltip tooltip-right-top">Key Skills</span>
+		<div class="description">
+			<h3>Description</h3>
+			<div class="row mb-3">
+				<div class="col-sm-4 themed-grid-col">
+					<label>SSTP Protocol number: </label>
+					<input type="text" placeholder="1234" name="SSTP">
+				</div>
+				<div class="col-sm-4 themed-grid-col">
+					<select name="label">
+						<option value="none" selected="" disabled="">Label</option>
+						<option value="">N/A</option>
+						<option value="FormalSVT9">Formal SVT Pass 9</option>
+						<option value="FormalSVT10">Formal SVT Pass 10</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-8 themed-grid-col">
+					<div class="pb-3">
+						<label>Expected Result: </label>
+						<textarea name="expected"></textarea>
+					</div>
+					<div class="pb-3">
+						<label>Actual Result: </label>
+						<textarea name="actual"></textarea>
 					</div>
 				</div>
-
-				<div class=" main-row">
-					<label class="input append-small-btn">
-						<div class="upload-btn">
-							Browse
-							<input type="file" name="file1" onchange="document.getElementById('file1_input').value = this.value;">
-						</div>
-						<input type="text" id="file1_input" readonly="" placeholder="Add your CV">
-						<span class="hint">Only: pdf / doc Size: lessthan 1 Mb</span>
-					</label>
+				<div class="col-sm-4 themed-grid-col">
+					<label>Steps to reproduce: </label>
+					<textarea name="message"></textarea>
 				</div>
-
-				<div class="footer">
-					<button type="submit" class="primary-btn">Send</button>
-					<button type="reset" class="secondary-btn">Reset</button>
-				</div>
-
-			</form>
+			</div>
 		</div>
+
+		<button type="submit" class="primary-btn">Send</button>
+		<button type="reset" class="secondary-btn">Reset</button>
 	</div>
+</div>
 {% endblock %}
