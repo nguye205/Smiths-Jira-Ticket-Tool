@@ -18,9 +18,19 @@
 						<h2>SSTP</h2>
 						<input type="text" class="form-control" id="sstp" placeholder="SSTP1234-0100" value="" required="">
 					</div>
-					<div class="col-md-4 mb-3">
+					<div class="col-sm-4 mb-3">
 						<h2>Label</h2>
-						<input type="text" class="form-control" id="label" placeholder="" value="" required="">
+						<select class="custom-select d-block w-100" id="label" required="">
+							<option value="FormalSVT">Formal Run</option>
+							<option value="DrySVT">Dry Run</option>
+						</select>
+						<h2>Pass</h2>
+						<select class="custom-select d-block w-100" id="pass" required="">
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
 					</div>
 					<div class="col-md-4 mb-3">
 						<h2>SRS</h2>
@@ -29,123 +39,38 @@
 				</div>
 				<hr class="mb-4">
 				<div class="mb-3">
-					<label for="username">Username</label>
-					<div class="input-group">
-						<input type="text" class="form-control" id="username" placeholder="Username" required="">
-						<div class="invalid-feedback" style="width: 100%;">
-							Your username is required.
-						</div>
-					</div>
+					<h2>Expected result</h2>
+					<textarea name="expectedresult" rows="3" cols="80"></textarea>
 				</div>
 
 				<div class="mb-3">
-					<label for="email">Email <span class="text-muted">(Optional)</span></label>
-					<input type="email" class="form-control" id="email" placeholder="you@example.com">
+					<h2>Actual result</h2>
+					<textarea name="actualresult" rows="3" cols="80"></textarea>
 				</div>
 
-				<div class="mb-3">
-					<label for="address">Address</label>
-					<input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-					<div class="invalid-feedback">
-						Please enter your shipping address.
-					</div>
-				</div>
-
-				<div class="mb-3">
-					<label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-					<input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-				</div>
-
-				<div class="row">
-					<div class="col-md-5 mb-3">
-						<label for="country">Country</label>
-						<select class="custom-select d-block w-100" id="country" required="">
-							<option value="">Choose...</option>
-							<option>United States</option>
-						</select>
-						<div class="invalid-feedback">
-							Please select a valid country.
-						</div>
-					</div>
-					<div class="col-md-4 mb-3">
-						<label for="state">State</label>
-						<select class="custom-select d-block w-100" id="state" required="">
-							<option value="">Choose...</option>
-							<option>California</option>
-						</select>
-						<div class="invalid-feedback">
-							Please provide a valid state.
-						</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="zip">Zip</label>
-						<input type="text" class="form-control" id="zip" placeholder="" required="">
-						<div class="invalid-feedback">
-							Zip code required.
-						</div>
-					</div>
-				</div>
 				<hr class="mb-4">
 				<div class="custom-control custom-checkbox">
 					<input type="checkbox" class="custom-control-input" id="same-address">
-					<label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+					<label class="custom-control-label" for="same-address">Put the expected result here</label>
 				</div>
 				<div class="custom-control custom-checkbox">
 					<input type="checkbox" class="custom-control-input" id="save-info">
 					<label class="custom-control-label" for="save-info">Save this information for next time</label>
 				</div>
 				<hr class="mb-4">
-
-				<h4 class="mb-3">Payment</h4>
-
-				<div class="d-block my-3">
-					<div class="custom-control custom-radio">
-						<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-						<label class="custom-control-label" for="credit">Credit card</label>
-					</div>
-					<div class="custom-control custom-radio">
-						<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-						<label class="custom-control-label" for="debit">Debit card</label>
-					</div>
-					<div class="custom-control custom-radio">
-						<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-						<label class="custom-control-label" for="paypal">PayPal</label>
-					</div>
+				<h2>Environment</h2>
+				<div class="mb-3">
+					<h3>Pump</h3>
+					<input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
 				</div>
-				<div class="row">
-					<div class="col-md-6 mb-3">
-						<label for="cc-name">Name on card</label>
-						<input type="text" class="form-control" id="cc-name" placeholder="" required="">
-						<small class="text-muted">Full name as displayed on card</small>
-						<div class="invalid-feedback">
-							Name on card is required
-						</div>
-					</div>
-					<div class="col-md-6 mb-3">
-						<label for="cc-number">Credit card number</label>
-						<input type="text" class="form-control" id="cc-number" placeholder="" required="">
-						<div class="invalid-feedback">
-							Credit card number is required
-						</div>
-					</div>
+				<div class="mb-3">
+					<h3>Library</h3>
+					<input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
 				</div>
-				<div class="row">
-					<div class="col-md-3 mb-3">
-						<label for="cc-expiration">Expiration</label>
-						<input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-						<div class="invalid-feedback">
-							Expiration date required
-						</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="cc-cvv">CVV</label>
-						<input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-						<div class="invalid-feedback">
-							Security code required
-						</div>
-					</div>
+				<div class="mb-3">
+					<h3>Firmware</h3>
+					<input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
 				</div>
-				<hr class="mb-4">
 				<button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
 			</form>
 		</div>
