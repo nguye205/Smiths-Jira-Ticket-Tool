@@ -2,33 +2,35 @@
 {% block content %}
 <div class="container">
 	<div class="py-5 text-center">
-		<h2>Jira Ticket Form</h2>
+		<h1>Jira Ticket Form</h1>
 	</div>
 
 	<div class="row">
 		<div class="col-sm">
 			<form class="needs-validation" novalidate="">
 				<div class="mb-3">
-					<label for="issuetitle">Title</label>
+					<h2>Title</h2>
 					<input type="text" class="form-control" id="issuetitle" placeholder="One sentence long summary of the issue">
 				</div>
+				<hr class="mb-4">
 				<div class="row">
-					<div class="col-md-6 mb-3">
-						<label for="firstName">First name</label>
-						<input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+					<div class="col-md-4 mb-3">
+						<h2>SSTP</h2>
+						<input type="text" class="form-control" id="sstp" placeholder="SSTP1234-0100" value="" required="">
 					</div>
-					<div class="col-md-6 mb-3">
-						<label for="lastName">Last name</label>
-						<input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+					<div class="col-md-4 mb-3">
+						<h2>Label</h2>
+						<input type="text" class="form-control" id="label" placeholder="" value="" required="">
+					</div>
+					<div class="col-md-4 mb-3">
+						<h2>SRS</h2>
+						<input type="text" class="form-control" id="srs" placeholder="SRS number if known" value="" required="">
 					</div>
 				</div>
-
+				<hr class="mb-4">
 				<div class="mb-3">
 					<label for="username">Username</label>
 					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">@</span>
-						</div>
 						<input type="text" class="form-control" id="username" placeholder="Username" required="">
 						<div class="invalid-feedback" style="width: 100%;">
 							Your username is required.
