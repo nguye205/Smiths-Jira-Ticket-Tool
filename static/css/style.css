@@ -1,5 +1,99 @@
-.form {
-  margin-left: auto;
+body {
+  background:#003f69
+}
+.main {
+  width: 800px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-top: 70px;
   margin-right: auto;
-  display: block;
+  margin-left: auto;
+  margin-bottom: 70px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+.container {
+  background-color: rgb(0,84,253);
+}
+
+.py-5 {
+
+}
+
+.text-center {
+
+}
+
+.row {
+
+}
+
+.col-sm {
+
+}
+
+.needs-validation {
+
+}
+
+.mb-3 {
+
+}
+
+.form-control {
+
+}
+
+.environment {
+
+}
+
+.mb-4 {
+
+}
+
+.col-md-4 {
+
+}
+
+.col-sm-4 {
+
+}
+
+.custom-select {
+
+}
+
+.d-block {
+
+}
+
+.w-100 {
+
+}
+
+.btn {
+
+}
+
+.btn-primary {
+
+}
+
+.btn-lg {
+
+}
+
+.btn-block {
+
+}
+
+.form-control, #expectedresult, #actualresult, #description {
+  border-width: medium;
+  border-color: red;
+  border-radius: 5px;
+}
+
+#otherenvironment {
+  border-radius: 5px;
 }
