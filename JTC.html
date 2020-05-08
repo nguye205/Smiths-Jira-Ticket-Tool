@@ -1,0 +1,104 @@
+<html>
+<head>
+  <title>
+    Jira Ticket Tool
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+
+  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet"/>
+  <script src="static/js/getInput.js"></script>
+</head>
+  <body data-gr-c-s-loaded="true">
+    <div class="main">
+    	<div class="text-center">
+    		<h1>Jira Ticket Form</h1>
+    	</div>
+    	<div class="row">
+    		<div class="col-sm">
+    			<form>
+    				<! -- Title ––>
+    				<div class="mb-3">
+    					<h2>Title</h2>
+    					<input type="text" class="form-control" id="issuetitle" placeholder="One sentence long summary of the issue" onchange="return FormValidation(issuetitle);" required>
+    				</div>
+
+    				<hr class="mb-4">
+
+    				<! -- Protocol, SRS, Label ––>
+    				<div class="row">
+    					<div class="col-md-4 mb-3">
+    						<h2>Protocol</h2>
+    						<input type="text" class="form-control" id="sstp" placeholder="SSTP1234-0100" onchange="return FormValidation(sstp);" required>
+    					</div>
+    					<div class="col-md-4 mb-3">
+    						<h2>SRS</h2>
+    						<input type="text" class="form-control" id="srs" placeholder="SRS number if known" onchange="return FormValidation(srs);" required>
+    					</div>
+    					<div class="col-sm-4 mb-3">
+    						<h2>Label</h2>
+    						<select class="custom-select d-block w-100" id="label" value="-" onchange="return FormValidation(label);" required>
+    							<option value=""></option>
+    							<option value="FormalSVT">Formal Run</option>
+    							<option value="DrySVT">Dry Run</option>
+    							<option value="NA">NA</option>
+    						</select>
+    						Pass:
+    						<select class="custom-select d-block w-100" id="pass" value="-" onchange="return FormValidation(pass);" required>
+    							<option value=""></option>
+    							<option value="9">9</option>
+    							<option value="10">10</option>
+    							<option value="11">11</option>
+    							<option value="12">12</option>
+    							<option value="NA">NA</option>
+    						</select>
+    					</div>
+    				</div>
+
+    				<hr class="mb-4">
+
+    				<! -- Results and Description ––>
+    				<div class="mb-3">
+    					<h2>Expected Result</h2>
+    					<textarea id="expectedresult" rows="3" cols="80" onchange="return FormValidation(expectedresult);" required></textarea>
+    				</div>
+    				<div class="mb-3">
+    					<h2>Actual Result</h2>
+    					<textarea id="actualresult" rows="3" cols="80" onchange="return FormValidation(actualresult);" required></textarea>
+    				</div>
+    				<div class="mb-3">
+    					<h2>Description</h2>
+    					<textarea id="description" rows="3" cols="80" onchange="return FormValidation(description);" required></textarea>
+    				</div>
+
+    				<hr class="mb-4">
+
+    				<! -- Environment ––>
+    				<h2>Environment</h2>
+    				<div class="row">
+    					<div class="col-md-4 mb-3">
+    						<h4>Pump Serial Number</h4>
+    						<input type="text" class="form-control" id="pumpserialnumber" placeholder="00-00000" onchange="return FormValidation(pumpserialnumber);" required>
+    					</div>
+    					<div class="col-md-4 mb-3">
+    						<h4>Library</h4>
+    						<input type="text" class="form-control" id="library" placeholder="library v0.000" onchange="return FormValidation(library);" required>
+    					</div>
+    					<div class="col-md-4 mb-3">
+    						<h4>Firmware Version</h4>
+    						<input type="text" class="form-control" id="firmwareversion" placeholder="1.0.0.111" onchange="return FormValidation(firmwareversion);" required>
+    					</div>
+    				</div>
+    				<div class="mb-3">
+    					<h4>Others</h4>
+    					<textarea id="otherenvironment" rows="2" cols="80"></textarea>
+    				</div>
+    				<hr class="mb-4">
+    				<input type="submit" class="btn btn-primary btn-lg btn-block">
+    			</form>
+    		</div>
+    	</div>
+    </div>
+  </body>
+</html>
