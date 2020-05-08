@@ -88,7 +88,7 @@ body {
 
 }
 
-.form-control, #expectedresult, #actualresult, #description {
+.form-control, #expectedresult, #actualresult, #description, #pass, #label{
   border-width: medium;
   border-color: red;
   border-radius: 5px;
