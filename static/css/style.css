@@ -89,9 +89,9 @@ body {
 }
 
 .form-control, #expectedresult, #actualresult, #description, #pass, #label{
-  border-width: medium;
-  border-color: red;
+  border-width: thin;
   border-radius: 5px;
+  box-shadow:0 0 6px red, 0 0 2px;
 }
 
 #otherenvironment {
