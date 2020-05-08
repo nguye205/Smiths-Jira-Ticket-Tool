@@ -84,6 +84,12 @@ body {
 .btn-block {
 
 }
+textarea {
+  width: 100%;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+}
 
 .form-control, #expectedresult, #actualresult, #description, #pass, #label{
   border-width: thin;
@@ -93,4 +99,8 @@ body {
 
 #otherenvironment {
   border-radius: 5px;
+}
+h1,h2,h3,h4 {
+  margin-bottom: 1px;
+  margin-top: 30px;
 }
