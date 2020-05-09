@@ -69,7 +69,8 @@ function sendTicketToJira() {
     headers: {
       'Authorization': `Basic ` + btoa(credential.toString()),
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'User-Agent': 'dummy'
     },
     body: bodyData
   };
