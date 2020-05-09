@@ -63,14 +63,13 @@ function sendTicketToJira() {
   var credential = username + ':' + api;
   console.log(btoa(credential.toString()));
   var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-      targetUrl = 'https://smithsforge.atlassian.net/rest/api/3/issue'
+    targetUrl = 'https://smithsforge.atlassian.net/rest/api/3/issue'
   const options = {
     method: 'POST',
     headers: {
       'Authorization': `Basic ` + btoa(credential.toString()),
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'User-Agent': 'dummy'
+      'Content-Type': 'application/json'
     },
     body: bodyData
   };
