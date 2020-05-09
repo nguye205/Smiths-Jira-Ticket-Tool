@@ -62,7 +62,8 @@ const bodyData = `{
 function sendTicketToJira() {
   var credential = username + ':' + api;
   console.log(btoa(credential.toString()));
-
+  var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+      targetUrl = 'https://smithsforge.atlassian.net/rest/api/3/issue'
   const options = {
     method: 'POST',
     headers: {
@@ -72,7 +73,7 @@ function sendTicketToJira() {
     },
     body: bodyData
   };
-  fetch('https://smithsforge.atlassian.net/rest/api/3/issue', options)
+  fetch(proxyUrl + targetUrl, options)
     .then(response => {
       console.log(
         `Response: ${response.status} ${response.statusText}`
