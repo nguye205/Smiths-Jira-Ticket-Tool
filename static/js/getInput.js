@@ -1,6 +1,3 @@
-var username = 'khai.nguyen@smiths-medical.com';
-var api = 'cEM3kVmmC9m0YMZvgFvD1D2F';
-
 function FormValidation(inputToValidate) {
   console.log(inputToValidate.value);
   if (inputToValidate.value != "" && inputToValidate.value != "-") {
