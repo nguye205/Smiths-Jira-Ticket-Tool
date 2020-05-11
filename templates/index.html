@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
 <div class="main">
 	<div class="text-center">
@@ -9,8 +10,7 @@
 			<form>
 				<! -- Title ––>
 				<div class="mb-3">
-					<h2>Title</h2>
-					<input type="text" class="form-control" id="issuetitle" placeholder="One sentence long summary of the issue" onchange="return FormValidation(issuetitle);" required>
+					{{ wtf.form_field(ticketForm.title,class="form-control", id="issuetitle", placeholder="One sentence long summary of the issue", onchange="return FormValidation(issuetitle);") }}
 				</div>
 
 				<hr class="mb-4">
@@ -18,30 +18,15 @@
 				<! -- Protocol, SRS, Label ––>
 				<div class="row">
 					<div class="col-md-4 mb-3">
-						<h2>Protocol</h2>
-						<input type="text" class="form-control" id="sstp" placeholder="SSTP1234-0100" onchange="return FormValidation(sstp);" required>
+						{{ wtf.form_field(ticketForm.protocol,class="form-control", id="sstp", placeholder="SSTP1234-0100", onchange="return FormValidation(sstp);") }}
 					</div>
 					<div class="col-md-4 mb-3">
-						<h2>SRS</h2>
-						<input type="text" class="form-control" id="srs" placeholder="SRS number if known" onchange="return FormValidation(srs);" required>
+						{{ wtf.form_field(ticketForm.srs,class="form-control", id="srs", placeholder="SRS number if known", onchange="return FormValidation(srs);") }}
 					</div>
 					<div class="col-sm-4 mb-3">
-						<h2>Label</h2>
-						<select class="custom-select d-block w-100" id="label" value="-" onchange="return FormValidation(label);" required>
-							<option value=""></option>
-							<option value="FormalSVT">Formal Run</option>
-							<option value="DrySVT">Dry Run</option>
-							<option value="NA">NA</option>
-						</select>
-						Pass:
-						<select class="custom-select d-block w-100" id="pass" value="-" onchange="return FormValidation(pass);" required>
-							<option value=""></option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="NA">NA</option>
-						</select>
+							{{ wtf.form_field(ticketForm.label,class="custom-select d-block w-100", id="label", onchange="return FormValidation(label);") }}
+
+							{{ wtf.form_field(ticketForm.runNumber,class="custom-select d-block w-100", id="pass", onchange="return FormValidation(pass);") }}
 					</div>
 				</div>
 

@@ -3,23 +3,39 @@ import requests
 import itertools
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
-from wtforms.validators import Regexp, ValidationError, Optional
+from wtforms import StringField, SubmitField, SelectField, PasswordField, BooleanField, TextAreaField
+from wtforms.validators import Regexp, ValidationError, Optional, InputRequired, Email, Length
 import re
 from flask.json import jsonify
 from jira import JIRA
+from flask_bootstrap import Bootstrap
 
 csrf = CSRFProtect()
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "a chicken has two legs"
+bootstrap = Bootstrap(app)
 
+class TicketForm(FlaskForm):
+    title = StringField('Title', validators=[InputRequired()])
+    protocol = StringField('Protocol', validators=[InputRequired()])
+    srs = StringField('SRS', validators=[InputRequired()])
+    label = SelectField('Label', choices=[('','-'),('FormalSVT','Formal run'),('DrySVT','Dry run')])
+    runNumber = SelectField('Pass:', choices=[('','-'),('9','9'),('10','10'),('11','11'),('12','12'),('NA','NA')])
+    expectedResult = TextAreaField('Expected Result', validators=[InputRequired()])
+    actualResult = TextAreaField('Actual Result', validators=[InputRequired()])
+    description = TextAreaField('Description', validators=[InputRequired()])
+    pumpSerialNumber = StringField('Pump Serial Number', validators=[InputRequired()])
+    library = StringField('Library', validators=[InputRequired()])
+    firmwareVersion = StringField('Firmware Version', validators=[InputRequired()])
+    others = TextAreaField('Others')
+    project = SelectField('Project', choices=[('SMPUMP','SMPUMP'),('SAN','SAN')])
 
 @app.route('/')
 def index():
-    return render_template("index.html")
-
-@app.route('/login')
-def login():
-    return render_template("login.html")
+    ticketForm = TicketForm()
+    if ticketForm.validate_on_submit():
+        return '<h1>valid</h1>'
+    return render_template("index.html", ticketForm=ticketForm)
 
 #API VARIABLES these only need to be updated once
 user = 'colin.ducklow@smiths-medical.com' #update string to your own email address
