@@ -1,5 +1,5 @@
 Step 1: Get your API here: https://id.atlassian.com/manage-profile/security/api-tokens
-Step 2: Copy your API key and paste that to app.py file (line 15,16)
+Step 2: Copy your API key and paste that to app.py file (line 15,16) and change the username
 Step 3: Download python here: https://www.python.org/downloads/
 Step 4: Install python-3.8.2.exe (run as admin/elevated if needed)
 Step 5: run install.ps1 with PowerShell
