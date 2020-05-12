@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, redirect, url_for
 import requests
 import itertools
 from flask_wtf.csrf import CSRFProtect
@@ -8,6 +8,7 @@ from wtforms.validators import Regexp, Optional, InputRequired, Email, Length
 import re
 from flask.json import jsonify
 from jira import JIRA
+from jira.exceptions import JIRAError
 from flask_bootstrap import Bootstrap
 
 csrf = CSRFProtect()
@@ -66,8 +67,20 @@ def submitBugTicket(ticketForm):
     print (Label)
     print ("*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library)
 
-    jira = JIRA(options, basic_auth=(user,apikey) )
+    try:
+        jira = JIRA(options, basic_auth=(user,apikey))
+    except JIRAError as e:
+        if e.status_code == 401:
+            return '<h1>Login to JIRA failed. Check your username and password</h1><a class="nav-link" href="/">Click here to go back</a>'
+        if e.status_code == 403:
+            return '<h1>You do not have permission to do this</h1><a class="nav-link" href="/">Click here to go back</a>'
+        if e.status_code == 400:
+            return '<h1>Missing required field or contains invalid field value</h1><a class="nav-link" href="/">Click here to go back</a>'
+        else:
+            errorCode = '<h1>'+'An error has occurred.'+'\n'+'Error code: '+ str(e.status_code) +'</h1>'
+            return errorCode + '<a class="nav-link" href="/">Click here to go back</a>'
 
+    jira = JIRA(options, basic_auth=(user,apikey))
     jira.create_issue(fields={
         'project': {'key': Project},  #Change SMPUM to SAN for debug/test mode
         'issuetype': {
@@ -79,11 +92,11 @@ def submitBugTicket(ticketForm):
         'environment': "*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library,
 
     })
+    return '<h1>This is your new ticket</h1><a class="nav-link" href="/">Click here to go back</a>'
 
 @app.route('/', methods=['POST','GET'])
 def index():
     ticketForm = TicketForm()
     if ticketForm.validate_on_submit():
-        submitBugTicket(ticketForm)
-        return '<h1>valid</h1>'
+        return submitBugTicket(ticketForm)
     return render_template("index.html", ticketForm=ticketForm)
