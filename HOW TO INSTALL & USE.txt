@@ -1,8 +1,10 @@
-Step 1: run install.ps1 as ELEVATED
-Step 2: wait until powershell terminal closes
-Step 3: right click on startServer.ps1 -> Run with PowerShell
-Step 4: Chrome will automatically open the website
-Step 5: Refresh the website after few seconds
+Step 1: Get your API here: https://id.atlassian.com/manage-profile/security/api-tokens
+Step 2: Copy your API key and paste that to app.py file (line 15,16)
+Step 3: run install.ps1 as ELEVATED
+Step 4: wait until powershell terminal closes
+Step 5: right click on startServer.ps1 -> Run with PowerShell
+Step 6: Chrome will automatically open the website
+Step 7: Refresh the website after few seconds
 
 Next time when you run, just run startServer.ps1
 DO NOT CLOSE THE SERVER WINDOW.
