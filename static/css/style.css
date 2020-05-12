@@ -91,7 +91,9 @@ textarea {
   box-sizing: border-box;
 }
 
-.form-control, #expectedresult, #actualresult, #description, #pass, #label, #project{
+#expectedresult, #actualresult, #description,
+#pass, #label, #project, #issuetitle, #protocol, #srs,
+#pumpserialnumber, #library, #firmwareversion{
   border-width: thin;
   border-radius: 5px;
   box-shadow:0 0 6px red, 0 0 2px;
