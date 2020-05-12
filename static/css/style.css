@@ -91,7 +91,7 @@ textarea {
   box-sizing: border-box;
 }
 
-#expectedresult, #actualresult, #description,
+#expectedresult, #actualresult, #stepstoreproduce,
 #pass, #label, #project, #issuetitle, #protocol, #srs,
 #pumpserialnumber, #library, #firmwareversion{
   border-width: thin;
