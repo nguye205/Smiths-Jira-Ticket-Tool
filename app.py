@@ -80,8 +80,6 @@ def index():
     ticketForm = TicketForm()
     if ticketForm.is_submitted():
         print (".............submitted")
-    if ticketForm.validate():
-        print ("valid")
     if ticketForm.validate_on_submit():
         return '<h1>valid</h1>'
     return render_template("index.html", ticketForm=ticketForm)
