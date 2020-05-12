@@ -11,6 +11,11 @@ from jira import JIRA
 from jira.exceptions import JIRAError
 from flask_bootstrap import Bootstrap
 
+
+user = 'khai.nguyen@smiths-medical.com'
+apikey = 'sgsretkj;l234346038203480'
+
+
 csrf = CSRFProtect()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "a chicken has two legs"
@@ -32,9 +37,6 @@ class TicketForm(FlaskForm):
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN')], validators=[InputRequired()])
 
 def submitBugTicket(ticketForm):
-    user = 'khai.nguyen@smiths-medical.com'
-    apikey = 'q7VDGp8svDzQqg5hUeXS1862'
-
     Summary = ticketForm.title.data
     SSTP = ticketForm.protocol.data
     SRS = ticketForm.srs.data
@@ -61,8 +63,11 @@ def submitBugTicket(ticketForm):
      'server': server
     }
 
+    global user
+    global apikey
+
     try:
-        jira = JIRA(options, basic_auth=(user,apikey))
+        jira = JIRA(options, basic_auth=(user, apikey))
     except JIRAError as e:
         if e.status_code == 401:
             return '<h1>Login to JIRA failed. Check your username and password</h1><a class="nav-link" href="/">Click here to go back</a>'
@@ -74,7 +79,7 @@ def submitBugTicket(ticketForm):
             errorCode = '<h1>'+'An error has occurred.'+'\n'+'Error code: '+ str(e.status_code) +'</h1>'
             return errorCode + '<a class="nav-link" href="/">Click here to go back</a>'
 
-    jira = JIRA(options, basic_auth=(user,apikey))
+    jira = JIRA(options, basic_auth=(user, apikey))
     jira.create_issue(fields={
         'project': {'key': Project},  #Change SMPUM to SAN for debug/test mode
         'issuetype': {
