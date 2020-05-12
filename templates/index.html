@@ -35,10 +35,7 @@
 
 				<! -- Results and Description ––>
 				<div class="mb-3">
-					{{ wtf.form_field(ticketForm.expectedResult, id="expectedresult", rows="3", cols="80", onchange="return FormValidation(expectedresult);") }}
-				</div>
-				<div class="mb-3">
-					{{ wtf.form_field(ticketForm.actualResult, id="actualresult", rows="3", cols="80", onchange="return FormValidation(actualresult);") }}
+					{{ wtf.form_field(ticketForm.others, id="others", rows="2", cols="80") }}
 				</div>
 				<div class="mb-3">
 					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", placeholder="STEP 1:
@@ -46,7 +43,12 @@ STEP 2:
 STEP 3:
 					", onchange="return FormValidation(stepstoreproduce);") }}
 				</div>
-
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.expectedResult, id="expectedresult", rows="3", cols="80", onchange="return FormValidation(expectedresult);") }}
+				</div>
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.actualResult, id="actualresult", rows="3", cols="80", onchange="return FormValidation(actualresult);") }}
+				</div>
 				<hr class="mb-4">
 
 				<! -- Environment ––>
@@ -61,9 +63,6 @@ STEP 3:
 					<div class="col-md-4 mb-3">
 						{{ wtf.form_field(ticketForm.firmwareVersion, id="firmwareversion", placeholder="1.0.0.123", onchange="return FormValidation(firmwareversion);") }}
 					</div>
-				</div>
-				<div class="mb-3">
-					{{ wtf.form_field(ticketForm.others, id="others", rows="2", cols="80") }}
 				</div>
 				<hr class="mb-4">
 				{{ wtf.form_field(ticketForm.project,class="custom-select d-block w-100", id="project", onchange="return FormValidation(project);") }}

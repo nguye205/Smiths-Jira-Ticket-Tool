@@ -13,7 +13,7 @@ from flask_bootstrap import Bootstrap
 
 
 user = 'khai.nguyen@smiths-medical.com'
-apikey = 'sgsretkj;l234346038203480'
+apikey = 'ipQ24Oe9uE8v2p8zKgHIAB99'
 
 
 csrf = CSRFProtect()
@@ -30,10 +30,10 @@ class TicketForm(FlaskForm):
     expectedResult = TextAreaField('Expected Result', validators=[InputRequired()])
     actualResult = TextAreaField('Actual Result', validators=[InputRequired()])
     stepsToReproduce = TextAreaField('Steps to reproduce', validators=[InputRequired()])
-    pumpSerialNumber = StringField('Pump Serial Number', validators=[InputRequired()])
+    pumpSerialNumber = StringField('Pump serial number', validators=[InputRequired()])
     library = StringField('Library', validators=[InputRequired()])
-    firmwareVersion = StringField('Firmware Version', validators=[InputRequired()])
-    others = TextAreaField('Others')
+    firmwareVersion = StringField('Firmware version', validators=[InputRequired()])
+    others = TextAreaField('Issue description')
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN')], validators=[InputRequired()])
 
 def submitBugTicket(ticketForm):
@@ -53,7 +53,7 @@ def submitBugTicket(ticketForm):
     #No need to update the rest of these variables
     server = 'https://smithsforge.atlassian.net'
     StepsToReproduce = "*Steps to reproduce:* \n" + stepsToReproduce
-    IssueDescription = "*Issue:* " + Summary
+    IssueDescription = "*Issue description:* " + Others
     Requirement = "*Requirement:* " + SRS
     TestProcedure = "*Test Procedure:* "+ SSTP
     Expected = '*Expected Result:* ' + Expected
@@ -86,7 +86,7 @@ def submitBugTicket(ticketForm):
             "name": "Bug"
         },
         'summary': Summary + " (" + SSTP + " " +Label+")",
-        'description': TestProcedure +"\n" +Requirement +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual + "\n\n" + Others,
+        'description': TestProcedure +"\n" +Requirement +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual,
         'labels': [Label],
         'environment': "*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library,
 
