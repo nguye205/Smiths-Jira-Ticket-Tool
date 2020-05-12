@@ -1,96 +1,76 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
-	<div class="content">
-		<h1>Jira Ticket</h1>
-
-		<div class="main">
-			<form class="contact-forms">
-				<div class="first-line">
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="SSTP####" name="SSTP">
-						</div>
-					</div>
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="Issue Title" name="Summary">
-						</div>
-					</div>
+<div class="main">
+	<div class="text-center">
+		<h1>Jira Ticket Form</h1>
+	</div>
+	<div class="row">
+		<div class="col-sm">
+			<form action="/" method="POST">
+				<! -- Title ––>
+				<div class="mb-3">
+					{{ ticketForm.hidden_tag() }}
+					{{ wtf.form_field(ticketForm.title, id="issuetitle", placeholder="One sentence long summary of the issue", onchange="return FormValidation(issuetitle);") }}
 				</div>
 
-				<div class="first-line">
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="Expected result" name="Expected">
-						</div>
-					</div>
-					<div class="span6 main-row">
-						<div class="input">
-							<input type="text" placeholder="Actual result" name="Actual">
-						</div>
-					</div>
-				</div>
+				<hr class="mb-4">
 
-				<div class="main-row">
-					<label class="input select">
-						<select name="label">
-							<option value="none" selected="" disabled="">Label</option>
-							<option value="">N/A</option>
-							<option value="FormalSVT9">Formal SVT Pass 9</option>
-							<option value="South Africa">Formal SVT Pass 10</option>
-						</select>
-						<i></i>
-					</label>
-				</div>
+				<! -- Protocol, SRS, Label ––>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.protocol, id="protocol", placeholder="SSTP1234-0100", onchange="return FormValidation(protocol);") }}
+					</div>
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.srs, id="srs", placeholder="SRS number if known", onchange="return FormValidation(srs);") }}
+					</div>
+					<div class="col-sm-4 mb-3">
+							{{ wtf.form_field(ticketForm.label,class="custom-select d-block w-100", id="label", onchange="return FormValidation(label);") }}
 
-				<div class="first-line">
-					<div class="span8 main-row">
-						<div class="input">
-							<input type="text" placeholder="Pump Type" name="pump">
-						</div>
+							{{ wtf.form_field(ticketForm.runNumber,class="custom-select d-block w-100", id="pass", onchange="return FormValidation(pass);") }}
 					</div>
 				</div>
 
-				<div class="main-row">
-					<div class="input">
-						<input type="text" placeholder="Firmware" name="firmware">
+				<hr class="mb-4">
+
+				<! -- Results and Description ––>
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.expectedResult, id="expectedresult", rows="3", cols="80", onchange="return FormValidation(expectedresult);") }}
+				</div>
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.actualResult, id="actualresult", rows="3", cols="80", onchange="return FormValidation(actualresult);") }}
+				</div>
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", placeholder="STEP 1:
+STEP 2:
+STEP 3:
+					", onchange="return FormValidation(stepstoreproduce);") }}
+				</div>
+
+				<hr class="mb-4">
+
+				<! -- Environment ––>
+				<h2>Environment</h2>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.pumpSerialNumber, id="pumpserialnumber", placeholder="00-12345", onchange="return FormValidation(pumpserialnumber);") }}
+					</div>
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.library, id="library", placeholder="LargeLibraryForTestTeamNew 0.425", onchange="return FormValidation(library);") }}
+					</div>
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.firmwareVersion, id="firmwareversion", placeholder="1.0.0.123", onchange="return FormValidation(firmwareversion);") }}
 					</div>
 				</div>
-
-				<div class="main-row">
-					<input type="text" placeholder="Library" name="library">
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.others, id="others", rows="2", cols="80") }}
 				</div>
-
-				<div class="main-row">
-					<div class="input">
-						<textarea placeholder="Additional info" spellcheck="false" name="message"></textarea>
-						<span class="tooltip tooltip-right-top">Key Skills</span>
-					</div>
-				</div>
-
-				<div class=" main-row">
-					<label class="input append-small-btn">
-						<div class="upload-btn">
-							Browse
-							<input type="file" name="file1" onchange="document.getElementById('file1_input').value = this.value;">
-						</div>
-						<input type="text" id="file1_input" readonly="" placeholder="Add your CV">
-						<span class="hint">Only: pdf / doc Size: lessthan 1 Mb</span>
-					</label>
-				</div>
-
-				<div class="footer">
-					<button type="submit" class="primary-btn">Send</button>
-					<button type="reset" class="secondary-btn">Reset</button>
-				</div>
-
+				<hr class="mb-4">
+				{{ wtf.form_field(ticketForm.project,class="custom-select d-block w-100", id="project", onchange="return FormValidation(project);") }}
+				<hr class="mb-4">
+				<button type="submit" name="button" class="btn btn-primary btn-lg btn-block">Submit</button>
 			</form>
 		</div>
 	</div>
+</div>
 {% endblock %}
