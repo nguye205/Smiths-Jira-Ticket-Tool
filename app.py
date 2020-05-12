@@ -32,8 +32,8 @@ class TicketForm(FlaskForm):
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN')], validators=[InputRequired()])
 
 def submitBugTicket(ticketForm):
-    user = 'colin.ducklow@smiths-medical.com' #update string to your own email address
-    apikey = '<APIKEY>' #update string to your JIRA API key. ex.) egkKeNabcdefglgLuDi95A7
+    user = 'khai.nguyen@smiths-medical.com'
+    apikey = 'q7VDGp8svDzQqg5hUeXS1862'
 
     Summary = ticketForm.title.data
     SSTP = ticketForm.protocol.data
@@ -53,19 +53,13 @@ def submitBugTicket(ticketForm):
     StepsToReproduce = "*Steps to reproduce:* \n" + stepsToReproduce
     IssueDescription = "*Issue:* " + Summary
     Requirement = "*Requirement:* " + SRS
-    TestProcedure = "*Test Procedure:* CRI-81352-"+ SSTP
+    TestProcedure = "*Test Procedure:* "+ SSTP
     Expected = '*Expected Result:* ' + Expected
     Actual = '*Actual Result:* ' + Actual
 
     options = {
      'server': server
     }
-
-    print (Project)
-    print (Summary + " ( CRI-81352-" + SSTP + " " +Label+" )")
-    print (TestProcedure +"\n" +Requirement +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual + "\n\n" + Others)
-    print (Label)
-    print ("*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library)
 
     try:
         jira = JIRA(options, basic_auth=(user,apikey))
@@ -86,13 +80,14 @@ def submitBugTicket(ticketForm):
         'issuetype': {
             "name": "Bug"
         },
-        'summary': Summary + " ( CRI-81352-" + SSTP + " " +Label+" )",
+        'summary': Summary + " (" + SSTP + " " +Label+")",
         'description': TestProcedure +"\n" +Requirement +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual + "\n\n" + Others,
         'labels': [Label],
         'environment': "*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library,
 
     })
-    return '<h1>This is your new ticket</h1><a class="nav-link" href="/">Click here to go back</a>'
+    newTicket ="https://smithsforge.atlassian.net/projects/"+Project+"/issues/?filter=reportedbyme"
+    return '<h1>This is your new ticket: <a class="nav-link" href='+newTicket+'>NEW TICKET</a></h1><a class="nav-link" href="/">Click here to go back</a>'
 
 @app.route('/', methods=['POST','GET'])
 def index():

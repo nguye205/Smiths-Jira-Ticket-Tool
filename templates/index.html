@@ -41,7 +41,10 @@
 					{{ wtf.form_field(ticketForm.actualResult, id="actualresult", rows="3", cols="80", onchange="return FormValidation(actualresult);") }}
 				</div>
 				<div class="mb-3">
-					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", onchange="return FormValidation(stepstoreproduce);") }}
+					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", placeholder="STEP 1:
+STEP 2:
+STEP 3:
+					", onchange="return FormValidation(stepstoreproduce);") }}
 				</div>
 
 				<hr class="mb-4">
@@ -53,7 +56,7 @@
 						{{ wtf.form_field(ticketForm.pumpSerialNumber, id="pumpserialnumber", placeholder="00-12345", onchange="return FormValidation(pumpserialnumber);") }}
 					</div>
 					<div class="col-md-4 mb-3">
-						{{ wtf.form_field(ticketForm.library, id="library", placeholder="CRI-81352-SSTLIB0002-0111 v0.425", onchange="return FormValidation(library);") }}
+						{{ wtf.form_field(ticketForm.library, id="library", placeholder="LargeLibraryForTestTeamNew 0.425", onchange="return FormValidation(library);") }}
 					</div>
 					<div class="col-md-4 mb-3">
 						{{ wtf.form_field(ticketForm.firmwareVersion, id="firmwareversion", placeholder="1.0.0.123", onchange="return FormValidation(firmwareversion);") }}
