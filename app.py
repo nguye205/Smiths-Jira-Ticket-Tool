@@ -34,7 +34,7 @@ class TicketForm(FlaskForm):
     library = StringField('Library', validators=[InputRequired()])
     firmwareVersion = StringField('Firmware version', validators=[InputRequired()])
     others = TextAreaField('Issue description')
-    project = SelectField('Project', choices=[('','-'), ('SAN','SAN')], validators=[InputRequired()])
+    project = SelectField('Project', choices=[('','-'), ('SAN','SAN'), ('SMPUM','SMPUM')], validators=[InputRequired()])
 
 def submitBugTicket(ticketForm):
     Summary = ticketForm.title.data
