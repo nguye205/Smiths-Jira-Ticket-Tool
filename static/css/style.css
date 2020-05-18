@@ -92,7 +92,7 @@ textarea {
 
 #expectedresult, #actualresult, #stepstoreproduce,
 #pass, #label, #project, #issuetitle, #protocol, #srs,
-#pumpserialnumber, #library, #firmwareversion{
+#pumpserialnumber, #library, #firmwareversion, #others{
   border-width: thin;
   border-radius: 5px;
   box-shadow:0 0 6px red, 0 0 2px;

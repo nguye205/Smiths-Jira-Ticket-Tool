@@ -13,7 +13,8 @@ from flask_bootstrap import Bootstrap
 
 
 user = 'khai.nguyen@smiths-medical.com'
-apikey = 'pV8myEaK91Lc5dHsEAbsCB38'
+#apikey = 'ipQ24Oe9uE8v2p8zKgHIAB99' #bad
+apikey = 'pV8myEaK91Lc5dHsEAbsCB38' #good
 
 
 csrf = CSRFProtect()
@@ -33,7 +34,7 @@ class TicketForm(FlaskForm):
     pumpSerialNumber = StringField('Pump serial number', validators=[InputRequired()])
     library = StringField('Library', validators=[InputRequired()])
     firmwareVersion = StringField('Firmware version', validators=[InputRequired()])
-    others = TextAreaField('Issue description')
+    others = TextAreaField('Issue description', validators=[InputRequired()])
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN'), ('SMPUM','SMPUM')], validators=[InputRequired()])
 
 def submitBugTicket(ticketForm):
@@ -81,12 +82,16 @@ def submitBugTicket(ticketForm):
         })
     except JIRAError as e:
         if e.status_code == 401:
+            print(e)
             return '<h1>Login to JIRA failed. Check your username and password</h1><a class="nav-link" href="/">Click here to go back</a>'
         if e.status_code == 403:
+            print(e)
             return '<h1>You do not have permission to do this</h1><a class="nav-link" href="/">Click here to go back</a>'
         if e.status_code == 400:
+            print(e)
             return '<h1>Missing required field or contains invalid field value</h1><a class="nav-link" href="/">Click here to go back</a>'
         else:
+            print(e)
             errorCode = '<h1>'+'An error has occurred.'+'\n'+'Error code: '+ str(e.status_code) +'</h1>'
             return errorCode + '<a class="nav-link" href="/">Click here to go back</a>'
 

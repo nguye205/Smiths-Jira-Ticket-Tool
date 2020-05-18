@@ -35,7 +35,7 @@
 
 				<! -- Results and Description ––>
 				<div class="mb-3">
-					{{ wtf.form_field(ticketForm.others, id="others", rows="2", cols="80") }}
+					{{ wtf.form_field(ticketForm.others, id="others", rows="3", cols="80", onchange="return FormValidation(others);") }}
 				</div>
 				<div class="mb-3">
 					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", placeholder="STEP 1:
