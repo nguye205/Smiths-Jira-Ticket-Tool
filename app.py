@@ -13,7 +13,7 @@ from flask_bootstrap import Bootstrap
 
 
 user = 'khai.nguyen@smiths-medical.com'
-apikey = 'ipQ24Oe9uE8v2p8zKgHIAB99'
+apikey = 'pV8myEaK91Lc5dHsEAbsCB38'
 
 
 csrf = CSRFProtect()
@@ -68,6 +68,17 @@ def submitBugTicket(ticketForm):
 
     try:
         jira = JIRA(options, basic_auth=(user, apikey))
+        jira.create_issue(fields={
+            'project': {'key': Project},  #Change SMPUM to SAN for debug/test mode
+            'issuetype': {
+                "name": "Bug"
+            },
+            'summary': Summary + " (" + SSTP + " " +Label+")",
+            'description': TestProcedure +"\n" +Requirement +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual,
+            'labels': [Label],
+            'environment': "*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library,
+
+        })
     except JIRAError as e:
         if e.status_code == 401:
             return '<h1>Login to JIRA failed. Check your username and password</h1><a class="nav-link" href="/">Click here to go back</a>'
@@ -79,18 +90,6 @@ def submitBugTicket(ticketForm):
             errorCode = '<h1>'+'An error has occurred.'+'\n'+'Error code: '+ str(e.status_code) +'</h1>'
             return errorCode + '<a class="nav-link" href="/">Click here to go back</a>'
 
-    jira = JIRA(options, basic_auth=(user, apikey))
-    jira.create_issue(fields={
-        'project': {'key': Project},  #Change SMPUM to SAN for debug/test mode
-        'issuetype': {
-            "name": "Bug"
-        },
-        'summary': Summary + " (" + SSTP + " " +Label+")",
-        'description': TestProcedure +"\n" +Requirement +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual,
-        'labels': [Label],
-        'environment': "*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library,
-
-    })
     newTicket ="https://smithsforge.atlassian.net/projects/"+Project+"/issues/?filter=reportedbyme"
     return '<h1>This is your new ticket: <a class="nav-link" href='+newTicket+'>NEW TICKET</a></h1><a class="nav-link" href="/">Click here to go back</a>'
 
