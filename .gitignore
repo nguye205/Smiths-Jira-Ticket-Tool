@@ -4306,3 +4306,4 @@ venv/Lib/site-packages/sqlalchemy/dialects/postgresql/provision.py
 venv/Lib/site-packages/sqlalchemy/dialects/sqlite/provision.py
 >>>>>>> master
 __pycache__/app.cpython-37.pyc
+*.pyc

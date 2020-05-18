@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template, redirect, url_for
+from flask import Flask, session, request, Response, render_template, redirect, url_for
 import requests
 import itertools
 from flask_wtf.csrf import CSRFProtect
@@ -36,6 +36,10 @@ class TicketForm(FlaskForm):
     firmwareVersion = StringField('Firmware version', validators=[InputRequired()])
     others = TextAreaField('Issue description', validators=[InputRequired()])
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN'), ('SMPUM','SMPUM')], validators=[InputRequired()])
+class LoginForm(FlaskForm):
+    username = StringField('Smiths email address', validators=[InputRequired()])
+    apikey = PasswordField('API Token', validators=[InputRequired()])
+    rememberme = BooleanField('Remember me')
 
 def submitBugTicket(ticketForm):
     Summary = ticketForm.title.data
@@ -104,3 +108,24 @@ def index():
     if ticketForm.validate_on_submit():
         return submitBugTicket(ticketForm)
     return render_template("index.html", ticketForm=ticketForm)
+
+@app.route('/login.html', methods=['POST','GET'])
+def login():
+    Loginform = LoginForm()
+
+    if Loginform.validate_on_submit():
+        login_user(user, remember=Loginform.rememberme.data)
+        session['id'] = user.id
+        session['user'] = user.username
+        return redirect(url_for('index'))
+        #return '<h1>Username or password does not exist</h1> <a href="/">GO TO HOME </a>'# if user doesn't exist
+        return '<h1 style="color: #111;font-size: 25px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;" > Username or password does not exist! <br><a href="/login.html">Click this link to get redirected to the login page </a></h1> '
+    return render_template("login.html", Loginform=Loginform, active_user='user' in session)
+
+@app.route('/logout.html')
+@login_required
+def logout():
+    logout_user()
+    session.pop('user', None)
+    session.pop('id', None)
+    return redirect(url_for('index'))
