@@ -1,156 +1,75 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
-	<div class="content">
-		<h1>Service Request</h1>
-		<div class="main">
-			<form class="contact-forms">
-				<!-- end /.header-->
-
-				<!-- start name -->
-				<div class="first-line">
-					<div class="span6 main-row">
-						<div class="input">
-							<label class="input select">
-								<select name="country">
-									<option value="none" selected="" disabled="">Make</option>
-									<option value="ModelA">A</option>
-									<option value="ModelB">B</option>
-									<option value="ModelC">C</option>
-									<option value="ModelE">E</option>
-									<option value="ModelF">F</option>
-								</select>
-								<i></i>
-							</label>
-						</div>
-					</div>
-					<div class="span6 main-row">
-						<div class="input">
-							<label class="input select">
-								<select name="country">
-									<option value="none" selected="" disabled="">Model</option>
-									<option value="ModelA">A</option>
-									<option value="ModelB">B</option>
-									<option value="ModelC">C</option>
-									<option value="ModelE">E</option>
-									<option value="ModelF">F</option>
-								</select>
-								<i></i>
-							</label>
-						</div>
-					</div>
+<div class="main">
+	<div class="text-center">
+		<h1>Jira Ticket Form</h1>
+	</div>
+	<div class="row">
+		<div class="col-sm">
+			<form action="/" method="POST">
+				<! -- Title ––>
+				<div class="mb-3">
+					{{ ticketForm.hidden_tag() }}
+					{{ wtf.form_field(ticketForm.title, id="issuetitle", placeholder="One sentence long summary of the issue", onchange="return FormValidation(issuetitle);") }}
 				</div>
-				<!-- end name -->
 
-				<!-- start email phone -->
-				<div class="first-line">
-					<div class="span6 main-row">
-						<div class="input">
+				<hr class="mb-4">
 
-							<input type="email" placeholder="Email" id="email" name="email">
-						</div>
+				<! -- Protocol, SRS, Label ––>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.protocol, id="protocol", placeholder="SSTP1234-0100", onchange="return FormValidation(protocol);") }}
 					</div>
-					<div class="span6 main-row">
-						<div class="input">
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.srs, id="srs", placeholder="SRS number if known", onchange="return FormValidation(srs);") }}
+					</div>
+					<div class="col-sm-4 mb-3">
+							{{ wtf.form_field(ticketForm.label,class="custom-select d-block w-100", id="label", onchange="return FormValidation(label);") }}
 
-							<input type="text" placeholder="Phone" id="phone" name="phone">
-						</div>
+							{{ wtf.form_field(ticketForm.runNumber,class="custom-select d-block w-100", id="pass", onchange="return FormValidation(pass);") }}
 					</div>
 				</div>
 
+				<hr class="mb-4">
 
-				<!-- start country -->
-				<div class="main-row">
-					<label class="input select">
-						<select name="country">
-							<option value="none" selected="" disabled="">Service Type</option>
-
-							<option value="Philippines">Touch Screen</option>
-							<option value="Portugal">Front Glass</option>
-							<option value="South Africa">South Africa</option>
-							<option value="Spain">Spain</option>
-							<option value="Switzerland">Switzerland</option>
-						</select>
-						<i></i>
-					</label>
+				<! -- Results and Description ––>
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.others, id="others", rows="3", cols="80", onchange="return FormValidation(others);") }}
 				</div>
-				<!-- end country -->
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", placeholder="STEP 1:
+STEP 2:
+STEP 3:
+					", onchange="return FormValidation(stepstoreproduce);") }}
+				</div>
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.expectedResult, id="expectedresult", rows="3", cols="80", onchange="return FormValidation(expectedresult);") }}
+				</div>
+				<div class="mb-3">
+					{{ wtf.form_field(ticketForm.actualResult, id="actualresult", rows="3", cols="80", onchange="return FormValidation(actualresult);") }}
+				</div>
+				<hr class="mb-4">
 
-				<!-- start city post code -->
-				<div class="first-line">
-					<div class="span8 main-row">
-						<div class="input">
-							<input type="text" id="city" placeholder="City" name="city">
-						</div>
+				<! -- Environment ––>
+				<h2>Environment</h2>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.pumpSerialNumber, id="pumpserialnumber", placeholder="00-12345", onchange="return FormValidation(pumpserialnumber);") }}
+					</div>
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.library, id="library", placeholder="LargeLibraryForTestTeamNew 0.425", onchange="return FormValidation(library);") }}
+					</div>
+					<div class="col-md-4 mb-3">
+						{{ wtf.form_field(ticketForm.firmwareVersion, id="firmwareversion", placeholder="1.0.0.123", onchange="return FormValidation(firmwareversion);") }}
 					</div>
 				</div>
-				<!-- end city post code -->
-
-				<!-- start address -->
-				<div class="main-row">
-					<div class="input">
-
-						<input type="text" id="address" placeholder="Address" name="address">
-					</div>
-				</div>
-				<!-- end address -->
-
-
-				<!-- start position -->
-				<div class="main-row">
-					<label class="input select">
-						<select name="position">
-							<option value="none" selected disabled="">Choose desired position</option>
-							<option value="tech lead">Operator</option>
-							<option value="product manager"> Manager</option>
-							<option value="senior developer"> Developer</option>
-							<option value="QA specialist">Designer</option>
-						</select>
-						<i></i>
-					</label>
-				</div>
-				<!-- end position -->
-
-				<!-- start message -->
-				<div class="main-row">
-					<div class="input">
-						<textarea placeholder="Additional info" spellcheck="false" name="message"></textarea>
-						<span class="tooltip tooltip-right-top">Key Skills</span>
-					</div>
-				</div>
-				<!-- end message -->
-
-				<!-- start files -->
-
-				<div class=" main-row">
-					<label class="input append-small-btn">
-						<div class="upload-btn">
-							Browse
-							<input type="file" name="file1" onchange="document.getElementById('file1_input').value = this.value;">
-						</div>
-						<input type="text" id="file1_input" readonly="" placeholder="Add your CV">
-						<span class="hint">Only: pdf / doc Size: lessthan 1 Mb</span>
-					</label>
-				</div>
-
-
-				<!-- end files -->
-
-
-				<!-- end /.content -->
-
-				<div class="footer">
-					<button type="submit" class="primary-btn">Send</button>
-					<button type="reset" class="secondary-btn">Reset</button>
-				</div>
-				<!-- end /.footer -->
-
+				<hr class="mb-4">
+				{{ wtf.form_field(ticketForm.project,class="custom-select d-block w-100", id="project", onchange="return FormValidation(project);") }}
+				<hr class="mb-4">
+				<button type="submit" name="button" class="btn btn-primary btn-lg btn-block">Submit</button>
 			</form>
 		</div>
 	</div>
+</div>
 {% endblock %}
