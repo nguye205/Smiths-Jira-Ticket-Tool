@@ -26,15 +26,17 @@ class TicketForm(FlaskForm):
     title = StringField('Title', validators=[InputRequired()])
     protocol = StringField('Protocol', validators=[InputRequired()])
     srs = StringField('SRS', validators=[InputRequired()])
+    testCase = StringField('Test Case', validators=[InputRequired()])
     label = SelectField('Label', choices=[('','-'),('FormalSVT','Formal run'),('DrySVT','Dry run')], validators=[InputRequired()])
     runNumber = SelectField('Pass:', choices=[('','-'),('9','9'),('10','10'),('11','11'),('12','12'),('NA','NA')], validators=[InputRequired()])
     expectedResult = TextAreaField('Expected Result', validators=[InputRequired()])
     actualResult = TextAreaField('Actual Result', validators=[InputRequired()])
     stepsToReproduce = TextAreaField('Steps to reproduce', validators=[InputRequired()])
-    pumpSerialNumber = StringField('Pump serial number', validators=[InputRequired()])
+    pumpSerialNumber = StringField('Pump SN', validators=[InputRequired()])
+    pumpType = SelectField('Pump type', choices=[('','-'),('LVP','LVP'),('SYR','SYR')], validators=[InputRequired()])
     library = StringField('Library', validators=[InputRequired()])
     firmwareVersion = StringField('Firmware version', validators=[InputRequired()])
-    others = TextAreaField('Issue description', validators=[InputRequired()])
+    issue = TextAreaField('Issue', validators=[InputRequired()])
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN'), ('SMPUM','SMPUM')], validators=[InputRequired()])
 
 @app.route('/success', methods=['POST','GET'])
@@ -44,26 +46,22 @@ def success():
 
 def submitBugTicket(ticketForm):
     Summary = ticketForm.title.data
-    SSTP = ticketForm.protocol.data
-    SRS = ticketForm.srs.data
     Label = ticketForm.label.data + "-" + ticketForm.runNumber.data
-    Expected = ticketForm.expectedResult.data
-    Actual = ticketForm.actualResult.data
-    stepsToReproduce = ticketForm.stepsToReproduce.data
-    Pump = ticketForm.pumpSerialNumber.data
-    Library = ticketForm.library.data
-    Firmware = ticketForm.firmwareVersion.data
-    Others = ticketForm.others.data
+    Pump = '*Pump:* ' + ticketForm.pumpSerialNumber.data
+    PumpType = ticketForm.pumpType.data
+    Library = '*Library:* ' + ticketForm.library.data
+    Firmware = '*Firmware:* ' + ticketForm.firmwareVersion.data
     Project = ticketForm.project.data
 
     #No need to update the rest of these variables
     server = 'https://smithsforge.atlassian.net'
-    StepsToReproduce = "*Steps to reproduce:* \n" + stepsToReproduce
-    IssueDescription = "*Issue description:* " + Others
-    Requirement = "*Requirement:* " + SRS
-    TestProcedure = "*Test Procedure:* "+ SSTP
-    Expected = '*Expected Result:* ' + Expected
-    Actual = '*Actual Result:* ' + Actual
+    StepsToReproduce = "*Steps to reproduce:* \n" + ticketForm.stepsToReproduce.data
+    IssueDescription = "*Issue:* " + ticketForm.issue.data
+    Requirement = "*Requirement:* " + ticketForm.srs.data
+    TestProcedure = "*Test Procedure:* "+ ticketForm.protocol.data
+    Expected = '*Expected Result:* ' + ticketForm.expectedResult.data
+    Actual = '*Actual Result:* ' + ticketForm.actualResult.data
+    TestCase = '*Test Case:* ' + ticketForm.testCase.data
 
     options = {
      'server': server
@@ -79,11 +77,10 @@ def submitBugTicket(ticketForm):
             'issuetype': {
                 "name": "Bug"
             },
-            'summary': Summary + " (" + SSTP + " " +Label+")",
-            'description': TestProcedure +"\n" +Requirement +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual,
+            'summary': Summary + " (" + ticketForm.protocol.data + " " +Label+")",
+            'description': TestProcedure +"\n" +Requirement + "\n" +TestCase +"\n\n"+ IssueDescription +"\n\n"+ StepsToReproduce +"\n\n" + Expected +"\n\n"+ Actual,
             'labels': [Label],
-            'environment': "*Pump:* "+Pump+"\n*Firmware:* "+Firmware+ "\n*Library:* "+Library,
-
+            'environment': Pump+" ("+PumpType+")"+"\n"+Firmware+ "\n"+Library
         })
     except JIRAError as e:
         if e.status_code == 401:
