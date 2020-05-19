@@ -88,7 +88,7 @@ def submitBugTicket(ticketForm):
     except JIRAError as e:
         if e.status_code == 401:
             print(e)
-            return '<h1>Login to JIRA failed. Check your username and password</h1><a class="nav-link" href="/">Click here to go back</a>'
+            return '<h1>Login to JIRA failed. Check your username and API token</h1><a class="nav-link" href="/">Click here to go back</a><br><a class="nav-link" href="https://id.atlassian.com/manage-profile/security/api-tokens">Get new API key</a>'
         if e.status_code == 403:
             print(e)
             return '<h1>You do not have permission to do this</h1><a class="nav-link" href="/">Click here to go back</a>'
@@ -100,12 +100,14 @@ def submitBugTicket(ticketForm):
             errorCode = '<h1>'+'An error has occurred.'+'\n'+'Error code: '+ str(e.status_code) +'</h1>'
             return errorCode + '<a class="nav-link" href="/">Click here to go back</a>'
     global newTicket
-    newTicket ="https://smithsforge.atlassian.net/projects/"+Project+"/issues/?filter=reportedbyme"
+    newTicket =server+"/projects/"+Project+"/issues/?filter=reportedbyme"
     return redirect(url_for('success'))
 
 @app.route('/', methods=['POST','GET'])
 def index():
+    global user
+    global apikey
     ticketForm = TicketForm()
     if ticketForm.validate_on_submit():
         return submitBugTicket(ticketForm)
-    return render_template("index.html", ticketForm=ticketForm)
+    return render_template("index.html", ticketForm=ticketForm, user=user, apikey=apikey)
