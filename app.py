@@ -15,7 +15,7 @@ from flask_bootstrap import Bootstrap
 user = 'khai.nguyen@smiths-medical.com'
 #apikey = 'ipQ24Oe9uE8v2p8zKgHIAB99' #bad
 apikey = 'pV8myEaK91Lc5dHsEAbsCB38' #good
-
+newTicket=''
 
 csrf = CSRFProtect()
 app = Flask(__name__)
@@ -36,6 +36,11 @@ class TicketForm(FlaskForm):
     firmwareVersion = StringField('Firmware version', validators=[InputRequired()])
     others = TextAreaField('Issue description', validators=[InputRequired()])
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN'), ('SMPUM','SMPUM')], validators=[InputRequired()])
+
+@app.route('/success', methods=['POST','GET'])
+def success():
+    global newTicket
+    return render_template("success.html", newTicket=newTicket)
 
 def submitBugTicket(ticketForm):
     Summary = ticketForm.title.data
@@ -94,9 +99,9 @@ def submitBugTicket(ticketForm):
             print(e)
             errorCode = '<h1>'+'An error has occurred.'+'\n'+'Error code: '+ str(e.status_code) +'</h1>'
             return errorCode + '<a class="nav-link" href="/">Click here to go back</a>'
-
+    global newTicket
     newTicket ="https://smithsforge.atlassian.net/projects/"+Project+"/issues/?filter=reportedbyme"
-    return '<h1>This is your new ticket: <a class="nav-link" href='+newTicket+'>NEW TICKET</a></h1><a class="nav-link" href="/">Click here to go back</a>'
+    return redirect(url_for('success'))
 
 @app.route('/', methods=['POST','GET'])
 def index():
