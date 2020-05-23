@@ -1,3 +1,4 @@
+import sys, os
 from flask import Flask, request, Response, render_template, redirect, url_for
 import requests
 import itertools
@@ -10,7 +11,7 @@ from flask.json import jsonify
 from jira import JIRA
 from jira.exceptions import JIRAError
 from flask_bootstrap import Bootstrap
-
+from flask_frozen import Freezer
 
 user = 'khai.nguyen@smiths-medical.com'
 #apikey = 'ipQ24Oe9uE8v2p8zKgHIAB99' #bad
@@ -21,6 +22,7 @@ csrf = CSRFProtect()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "a chicken has two legs"
 bootstrap = Bootstrap(app)
+freezer = Freezer(app)
 
 class TicketForm(FlaskForm):
     title = StringField('Title', validators=[InputRequired()])
@@ -108,3 +110,9 @@ def index():
     if ticketForm.validate_on_submit():
         return submitBugTicket(ticketForm)
     return render_template("index.html", ticketForm=ticketForm, user=user, apikey=apikey)
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "build":
+        freezer.freeze()
+    else:
+        app.run(port=5000)
