@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="col-sm">
 			<form action="/" method="POST">
+				<a class="nav-link" id="clear" href="/">Clear all fields</a>
 				<! -- Title ––>
 				<div class="mb-3">
 					{{ ticketForm.hidden_tag() }}
@@ -18,15 +19,17 @@
 
 				<! -- Protocol, SRS, Label ––>
 				<div class="row">
-					<div class="col-md-4 mb-3">
+					<div class="col-sm-3 mb-3">
 						{{ wtf.form_field(ticketForm.protocol, id="protocol", placeholder="SSTP1234-0100", onchange="return FormValidation(protocol);") }}
 					</div>
-					<div class="col-md-4 mb-3">
-						{{ wtf.form_field(ticketForm.srs, id="srs", placeholder="SRS number if known", onchange="return FormValidation(srs);") }}
+					<div class="col-sm-3 mb-3">
+						{{ wtf.form_field(ticketForm.srs, id="srs", placeholder="Requirement number", onchange="return FormValidation(srs);") }}
 					</div>
-					<div class="col-sm-4 mb-3">
+					<div class="col-sm-3 mb-3">
+						{{ wtf.form_field(ticketForm.testCase, id="testcase", placeholder="Test case number", onchange="return FormValidation(testcase);") }}
+					</div>
+					<div class="col-sm-3 mb-3">
 							{{ wtf.form_field(ticketForm.label,class="custom-select d-block w-100", id="label", onchange="return FormValidation(label);") }}
-
 							{{ wtf.form_field(ticketForm.runNumber,class="custom-select d-block w-100", id="pass", onchange="return FormValidation(pass);") }}
 					</div>
 				</div>
@@ -35,12 +38,12 @@
 
 				<! -- Results and Description ––>
 				<div class="mb-3">
-					{{ wtf.form_field(ticketForm.others, id="others", rows="3", cols="80", onchange="return FormValidation(others);") }}
+					{{ wtf.form_field(ticketForm.issue, id="issue", rows="3", cols="80", placeholder="Brief description what happened", onchange="return FormValidation(issue);") }}
 				</div>
 				<div class="mb-3">
-					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", placeholder="STEP 1:
+					{{ wtf.form_field(ticketForm.stepsToReproduce, id="stepstoreproduce", rows="3", cols="80", placeholder="Concise listing of the steps needed to reproduce, reference procedure step(s) that failed.
+STEP 1:
 STEP 2:
-STEP 3:
 					", onchange="return FormValidation(stepstoreproduce);") }}
 				</div>
 				<div class="mb-3">
@@ -54,13 +57,16 @@ STEP 3:
 				<! -- Environment ––>
 				<h2>Environment</h2>
 				<div class="row">
-					<div class="col-md-4 mb-3">
+					<div class="col-sm-2 mb-3">
 						{{ wtf.form_field(ticketForm.pumpSerialNumber, id="pumpserialnumber", placeholder="00-12345", onchange="return FormValidation(pumpserialnumber);") }}
 					</div>
-					<div class="col-md-4 mb-3">
+					<div class="col-sm-2 mb-3">
+						{{ wtf.form_field(ticketForm.pumpType, id="pumptype", onchange="return FormValidation(pumptype);") }}
+					</div>
+					<div class="col-sm-4 mb-3">
 						{{ wtf.form_field(ticketForm.library, id="library", placeholder="LargeLibraryForTestTeamNew 0.425", onchange="return FormValidation(library);") }}
 					</div>
-					<div class="col-md-4 mb-3">
+					<div class="col-sm-4 mb-3">
 						{{ wtf.form_field(ticketForm.firmwareVersion, id="firmwareversion", placeholder="1.0.0.123", onchange="return FormValidation(firmwareversion);") }}
 					</div>
 				</div>
