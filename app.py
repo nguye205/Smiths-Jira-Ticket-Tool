@@ -1,16 +1,20 @@
-from flask import Flask, request, Response, render_template, redirect, url_for
+from flask import Flask, session, request, Response, render_template, redirect, url_for
 import requests
 import itertools
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, TextAreaField
+from wtforms import StringField, SelectField, TextAreaField, PasswordField, BooleanField
 from wtforms.validators import Regexp, Optional, InputRequired, Email, Length
+from wtforms.fields.html5 import EmailField
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
 import re
 from flask.json import jsonify
 from jira import JIRA
 from jira.exceptions import JIRAError
 from flask_bootstrap import Bootstrap
-
+import sqlite3
+from flask_sqlalchemy import SQLAlchemy
 
 user = 'khai.nguyen@smiths-medical.com'
 #apikey = 'ipQ24Oe9uE8v2p8zKgHIAB99' #bad
@@ -21,6 +25,16 @@ csrf = CSRFProtect()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "a chicken has two legs"
 bootstrap = Bootstrap(app)
+db = SQLAlchemy(app)
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///database.db'
+login_mng = LoginManager(app)
+login_mng.login_view = 'login'
+
+class UserAccount(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(40), unique=True)
+    password = db.Column(db.String(40))
+    api = db.Column(db.String())
 
 class TicketForm(FlaskForm):
     title = StringField('Title', validators=[InputRequired()])
@@ -38,6 +52,12 @@ class TicketForm(FlaskForm):
     firmwareVersion = StringField('Firmware version', validators=[InputRequired()])
     issue = TextAreaField('Issue', validators=[InputRequired()])
     project = SelectField('Project', choices=[('','-'), ('SAN','SAN'), ('SMPUM','SMPUM')], validators=[InputRequired()])
+
+class LoginForm(FlaskForm):
+    email = EmailField('Email Address', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
+    api = StringField('API key')
+    remember_me = BooleanField('Remember me')
 
 @app.route('/success', methods=['POST','GET'])
 def success():
@@ -107,4 +127,46 @@ def index():
     ticketForm = TicketForm()
     if ticketForm.validate_on_submit():
         return submitBugTicket(ticketForm)
-    return render_template("index.html", ticketForm=ticketForm, user=user, apikey=apikey)
+    return render_template("index.html", ticketForm=ticketForm, user='user' in session, apikey=apikey)
+
+@app.route('/register', methods=['POST','GET'])
+def register():
+    Loginform = LoginForm()
+    if Loginform.validate_on_submit():
+        pw_hash = generate_password_hash(Loginform.password.data, method='sha1') # sha1 hashes creates 40 characters
+        newUser = UserAccount(username=Loginform.email.data, password=pw_hash, api=Loginform.api.data)
+        db.session.add(newUser)
+        try:
+            db.session.commit()
+        except:
+            db.session.close()
+            return '<h1 style="color: #111;font-size: 25px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;" > You already have an account! <br><a href="/login">Click here to login</a></h1> '
+            #return render_template("login.html", Loginform = Loginform, temp = 1)
+        db.session.close()
+        return '<h1 style="color: #111;font-size: 25px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;" > User has been created <br><a href="/login">Click here to login</a></h1> '
+    return render_template("register.html", Loginform=Loginform)
+
+
+@app.route('/login', methods=['POST','GET'])
+def login():
+    Loginform = LoginForm()
+    if Loginform.validate_on_submit():
+        print('validate')
+        user = UserAccount.query.filter_by(username=Loginform.email.data).first() # only get one result
+        if user:        # if user exists, get the Password
+            if check_password_hash(user.password, Loginform.password.data):
+                login_user(user, remember=Loginform.remember_me.data)
+                session['id'] = user.id
+                session['user'] = user.username
+                print('added to session')
+                return redirect(url_for('index'))
+        return '<h1 style="color: #111;font-size: 25px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;" > Username or password does not exist! <br><a href="/login">Click this link to get redirected to the login page </a><br><a href="/register">Click here to register</a></h1> '
+    return render_template("login.html", Loginform=Loginform, user='user' in session)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    session.pop('user', None)
+    session.pop('id', None)
+    return redirect(url_for('index'))

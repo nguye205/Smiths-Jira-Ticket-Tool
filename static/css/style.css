@@ -12,6 +12,21 @@ body {
   background-color: #fff;
 }
 
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 100 auto;
+}
+
+.textcenter {
+  text-align:center;
+}
+
+.whitetext{
+  color: white;
+}
+
 .py-5 {
 
 }

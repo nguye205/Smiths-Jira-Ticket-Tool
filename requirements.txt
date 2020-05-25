@@ -15,3 +15,6 @@ flask_bootstrap
 flask_migrate
 gunicorn
 jira
+flask_login
+SQLAlchemy
+Flask-Session

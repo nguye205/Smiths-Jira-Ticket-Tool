@@ -1,0 +1,18 @@
+{% extends "base.html"%}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="main">
+  <form class="form-register" method="POST">
+    <h3 class="textcenter">Register</h3>
+    <div class="row">
+      {{ Loginform.hidden_tag() }}
+      <div class="col-md-6">
+        {{ wtf.form_field(Loginform.email, placeholder="Email address") }}
+      </div>
+      <div class="col-md-6">
+        {{ wtf.form_field(Loginform.password, placeholder="Password") }}
+      </div>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</div>
+{% endblock %}
