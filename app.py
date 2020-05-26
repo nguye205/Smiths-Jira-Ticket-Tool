@@ -13,8 +13,8 @@ from flask_bootstrap import Bootstrap
 
 
 user = 'khai.nguyen@smiths-medical.com'
-#apikey = 'ipQ24Oe9uE8v2p8zKgHIAB99' #bad
-apikey = 'pV8myEaK91Lc5dHsEAbsCB38' #good
+apikey = 'pV8myEaK91Lc5dHsEAbsCB38'
+
 newTicket=''
 
 csrf = CSRFProtect()
