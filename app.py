@@ -12,8 +12,8 @@ from jira.exceptions import JIRAError
 from flask_bootstrap import Bootstrap
 
 
-user = 'khai.nguyen@smiths-medical.com'
-apikey = 'pV8myEaK91Lc5dHsEAbsCB38'
+user = ''
+apikey = ''
 
 newTicket=''
 
