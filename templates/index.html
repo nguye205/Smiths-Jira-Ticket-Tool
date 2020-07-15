@@ -46,6 +46,7 @@ STEP 1:
 STEP 2:
 					", onchange="return FormValidation(stepstoreproduce);") }}
 				</div>
+				<button type="button" id="steps" class="btn btn-primary" name="button">+</button>
 				<div class="mb-3">
 					{{ wtf.form_field(ticketForm.expectedResult, id="expectedresult", rows="3", cols="80", onchange="return FormValidation(expectedresult);") }}
 				</div>
@@ -73,7 +74,7 @@ STEP 2:
 				<hr class="mb-4">
 				{{ wtf.form_field(ticketForm.project,class="custom-select d-block w-100", id="project", onchange="return FormValidation(project);") }}
 				<hr class="mb-4">
-				<button type="submit" name="button" class="btn btn-primary btn-lg btn-block">Submit</button>
+				<button type="submit" id="submit" name="button" class="btn btn-primary btn-lg btn-block">Submit</button>
 			</form>
 		</div>
 	</div>

@@ -27,8 +27,8 @@ class TicketForm(FlaskForm):
     protocol = StringField('Protocol', validators=[InputRequired()])
     srs = StringField('SRS', validators=[InputRequired()])
     testCase = StringField('Test Case', validators=[InputRequired()])
-    label = SelectField('Label', choices=[('','-'),('FormalSVT','Formal run'),('DrySVT','Dry run')], validators=[InputRequired()])
-    runNumber = SelectField('Pass:', choices=[('','-'),('9','9'),('10','10'),('11','11'),('12','12'),('NA','NA')], validators=[InputRequired()])
+    label = SelectField('Label', choices=[('','-'),('FormalSVT','Formal run'),('DrySVT','Dry run'),('NA','NA')], validators=[InputRequired()])
+    runNumber = SelectField('Pass:', choices=[('','-'),('10','10'),('11','11'),('12','12'),('13','13'),('NA','NA')], validators=[InputRequired()])
     expectedResult = TextAreaField('Expected Result', validators=[InputRequired()])
     actualResult = TextAreaField('Actual Result', validators=[InputRequired()])
     stepsToReproduce = TextAreaField('Steps to reproduce', validators=[InputRequired()])
@@ -46,7 +46,9 @@ def success():
 
 def submitBugTicket(ticketForm):
     Summary = ticketForm.title.data
-    Label = ticketForm.label.data + "-" + ticketForm.runNumber.data
+    Label = ''
+    if ticketForm.label.data != 'NA':
+        Label = ticketForm.label.data + "-" + ticketForm.runNumber.data
     Pump = '*Pump:* ' + ticketForm.pumpSerialNumber.data
     PumpType = ticketForm.pumpType.data
     Library = '*Library:* ' + ticketForm.library.data
@@ -69,7 +71,7 @@ def submitBugTicket(ticketForm):
 
     global user
     global apikey
-
+    print(Summary + " (" + ticketForm.protocol.data + " " +Label+")")
     try:
         jira = JIRA(options, basic_auth=(user, apikey))
         jira.create_issue(fields={

@@ -109,3 +109,10 @@ textarea {
 h1,h2,h3,h4 {
   margin-top: 0px;
 }
+#submit:focus {
+    background-color:#6f7376;
+}
+
+#steps{
+  margin-bottom: 5px;
+}
