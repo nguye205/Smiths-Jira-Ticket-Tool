@@ -12,8 +12,8 @@ from jira.exceptions import JIRAError
 from flask_bootstrap import Bootstrap
 
 
-user = 'khai.nguyen@smiths-medical.com'
-apikey = 'gHuD1RqlERUC46dGzjwA33BE'
+user = ''
+apikey = ''
 
 newTicket=''
 
@@ -54,7 +54,7 @@ def submitBugTicket(ticketForm):
     Project = ticketForm.project.data
 
     #No need to update the rest of these variables
-    server = 'https://smiths-medical.atlassian.net'
+    server = ''
     StepsToReproduce = "*Steps to reproduce:* \n" + ticketForm.stepsToReproduce.data
     IssueDescription = "*Issue:* " + ticketForm.issue.data
     Requirement = "*Requirement:* " + ticketForm.srs.data
